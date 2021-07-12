@@ -1,4 +1,4 @@
-#Confluent on 5G Edge Tutorial
+# Confluent on 5G Edge Tutorial
 
 After creating EKS cluster + node groups, SSH onto WLZ node and get Kafka binaries:
 ```
