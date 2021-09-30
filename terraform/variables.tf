@@ -16,6 +16,11 @@ variable "ec2_key" {
   description = "This is your EC2 key name."
 }
 
+variable "cluster_name" {
+  type        = string
+  default     = "wavelength"
+}
+
 variable "wavelength_zone" {
   type        = string
   default     = "us-east-1-wl1-nyc-wlz-1"

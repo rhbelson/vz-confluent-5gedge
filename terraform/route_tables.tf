@@ -1,6 +1,6 @@
 # Create the Route Table for Region
 resource "aws_route_table" "region_route_table" {
-  vpc_id = aws_vpc.tf-vpc.id
+  vpc_id = aws_vpc.tf_vpc.id
   tags = {
     Name = "Region Route Table"
   }
@@ -8,7 +8,7 @@ resource "aws_route_table" "region_route_table" {
 
 # Create the Route Table for Wavelength Zone
 resource "aws_route_table" "WLZ_route_table" {
-  vpc_id = aws_vpc.tf-vpc.id
+  vpc_id = aws_vpc.tf_vpc.id
   tags = {
     Name = "Wavelength Zone Route Table"
   }
