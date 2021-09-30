@@ -2,7 +2,7 @@ locals {
     yaml_quote = ""
 
     map_worker_roles = [
-        for role_arn in ["arn:aws:iam::829250931565:role/tf-node-group-1-NodeInstanceRole-1U4CZGYO9YQRN"] : {
+        for role_arn in [aws_cloudformation_stack.eks_node_group.outputs.NodeInstanceRole] : {
         rolearn : role_arn
         username : "system:node:{{EC2PrivateDNSName}}"
         groups : [
@@ -28,6 +28,10 @@ resource "kubernetes_config_map" "aws_auth" {
         mapUsers    = replace(yamlencode(local.map_additional_iam_users), "\"", local.yaml_quote)
         mapAccounts = replace(yamlencode(local.map_additional_aws_accounts), "\"", local.yaml_quote)
     }
-    
+
+    depends_on = [
+      module.eks_cluster,
+      aws_cloudformation_stack.eks_node_group
+    ]
 }
 # aws_cloudformation_stack.eks_node_group.outputs.NodeInstanceRole

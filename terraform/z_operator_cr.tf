@@ -22,6 +22,10 @@ resource "kubernetes_manifest" "zookeeper_confluent_zookeeper" {
     }
 
     # computed_fields = ["metadata.finalizers"]
+
+    depends_on = [
+        helm_release.confluent_for_kubernetes
+    ]
 }
 
 resource "kubernetes_manifest" "kafka_confluent_kafka" {
@@ -78,6 +82,10 @@ resource "kubernetes_manifest" "kafka_confluent_kafka" {
     }
 
     # computed_fields = ["metadata.finalizers"]
+
+    depends_on = [
+        helm_release.confluent_for_kubernetes
+    ]
 }
 
 resource "kubernetes_manifest" "schemaregistry_confluent_schemaregistry" {
@@ -102,6 +110,10 @@ resource "kubernetes_manifest" "schemaregistry_confluent_schemaregistry" {
     }
 
     # computed_fields = ["metadata.finalizers"]
+
+    depends_on = [
+        helm_release.confluent_for_kubernetes
+    ]
 }
 
 resource "kubernetes_manifest" "connect_confluent_connect" {
@@ -131,6 +143,10 @@ resource "kubernetes_manifest" "connect_confluent_connect" {
     }
 
     # computed_fields = ["metadata.finalizers"]
+
+    depends_on = [
+        helm_release.confluent_for_kubernetes
+    ]
 }
 
 resource "kubernetes_manifest" "ksqldb_confluent_ksqldb" {
@@ -156,6 +172,10 @@ resource "kubernetes_manifest" "ksqldb_confluent_ksqldb" {
     }
 
     # computed_fields = ["metadata.finalizers"]
+
+    depends_on = [
+        helm_release.confluent_for_kubernetes
+    ]
 }
 
 resource "kubernetes_manifest" "controlcenter_confluent_controlcenter" {
@@ -198,4 +218,8 @@ resource "kubernetes_manifest" "controlcenter_confluent_controlcenter" {
     }
 
     # computed_fields = ["metadata.finalizers"]
+
+    depends_on = [
+        helm_release.confluent_for_kubernetes
+    ]
 }

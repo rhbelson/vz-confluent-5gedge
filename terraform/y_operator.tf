@@ -2,7 +2,11 @@ resource "kubernetes_namespace" "confluent" {
     metadata {
         name = "confluent"
     }
-} 
+
+    depends_on = [
+        kubernetes_namespace.confluent
+    ]
+}
 
 provider "helm" {
     kubernetes {
