@@ -20,44 +20,28 @@ module "eks_cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "${var.cluster_name}"
   cluster_version = "1.21"
-  manage_aws_auth = false
   subnets         = [
     aws_subnet.tf_region_subnet.id,
     aws_subnet.tf_region_subnet_2.id,
     # aws_subnet.tf_wl_subnet.id
   ]
   vpc_id          = aws_vpc.tf_vpc.id
-}
 
-resource "aws_cloudformation_stack" "eks_node_group" {
-  name = "tf-node-group"
-  parameters = {
-    ClusterControlPlaneSecurityGroup    = module.eks_cluster.cluster_security_group_id
-    NodeGroupName                       = "Wavelength-Node-Group"
-    KeyName                             = var.ec2_key
-    Subnets                             = aws_subnet.tf_wl_subnet.id
-    ClusterName                         = module.eks_cluster.cluster_id
-    VpcId                               = aws_vpc.tf_vpc.id
-    NodeAutoScalingGroupDesiredCapacity = 1
-    NodeInstanceType                    = "t3.xlarge"
-    BootstrapArguments                  = join(", ", ["--apiserver-endpoint", module.eks_cluster.cluster_endpoint, "--b64-cluster-ca", module.eks_cluster.cluster_certificate_authority_data, "--capabilities", "CAPABILITY_NAMED_IAM"])
-  }
+  manage_aws_auth = true
+  manage_cluster_iam_resources = true
+  manage_worker_iam_resources = true
 
-  depends_on = [
-    module.eks_cluster,
-    # kubernetes_config_map.aws_auth,
+  worker_create_security_group = true
+  worker_create_cluster_primary_security_group_rules = true
+
+  write_kubeconfig = true
+
+  map_roles = [
+    {
+      rolearn = aws_iam_role.worker_role.arn
+      username = "system:node:{{EC2PrivateDNSName}}"
+      groups   = ["system:bootstrappers","system:nodes"]
+
+    }
   ]
-
-  template_url = var.node_group_s3_bucket_url
-  capabilities = ["CAPABILITY_IAM"]
 }
-
-# resource "null_resource" "apply_auth_map" {
-#     provisioner "local-exec" {
-#       command = "./apply-auth-map.sh"
-#     }
-#     depends_on = [
-#       data.aws_eks_cluster.cluster
-#     ]
-# }
-

@@ -4,7 +4,8 @@ resource "kubernetes_namespace" "confluent" {
     }
 
     depends_on = [
-        kubernetes_namespace.confluent
+        module.eks_cluster
+        # kubernetes_namespace.confluent
     ]
 }
 
@@ -25,6 +26,7 @@ resource "helm_release" "confluent_for_kubernetes" {
     namespace = "confluent"
 
     depends_on = [
-        kubernetes_namespace.confluent
+        aws_autoscaling_group.workers,
+        kubernetes_namespace.confluent,
     ]
 }
