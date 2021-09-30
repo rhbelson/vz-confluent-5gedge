@@ -10,7 +10,7 @@ variable "region" {
   description = "This is the AWS region."
 }
 
-variable "ec2_key" {
+variable "worker_key_name" {
   type        = string
   default     = "test_key"
   description = "This is your EC2 key name."
@@ -45,6 +45,25 @@ variable "node_group_s3_bucket_url" {
   description = "This is the S3 object URL of the EKS node group with auto-attached Carrier IPs."
 }
 
+variable "worker_volume_size" {
+  default = 20
+}
+
+variable "worker_instance_type" {
+  default = "t3.xlarge"
+}
+
+variable "require_imdsv2" {
+  default = true
+}
+
+variable "worker_image_id" {
+  default = "ami-0193ebf9573ebc9f7"
+}
+
+variable "worker_nodegroup_name" {
+  default = "Wavelength-Node-Group"
+}
 
 locals {
   ports_in = [
