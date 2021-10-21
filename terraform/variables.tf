@@ -65,6 +65,10 @@ variable "worker_nodegroup_name" {
   default = "Wavelength-Node-Group"
 }
 
+variable "domain" {
+  default = "lab.local"
+}
+
 locals {
   ports_in = [
     443,
@@ -76,4 +80,10 @@ locals {
   ]
 }
 
+variable "cp_version" {
+  default = "6.2.1"
+}
 
+variable "cfk_version" {
+  default = "2.1.0"
+}

@@ -1,3 +1,5 @@
+# The kubernetes_manifest beta Terraform resource has a LOT of issues, so for now generate a manifest (confluent_manifest.yaml) and apply it (kubectl --kubeconfig kubeconfig_* apply -f confluent_manifest.yaml)
+
 resource "kubernetes_manifest" "zookeeper_confluent_zookeeper" {
     manifest = {
         "apiVersion" = "platform.confluent.io/v1beta1"
