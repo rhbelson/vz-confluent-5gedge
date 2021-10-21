@@ -18,29 +18,29 @@ provider "kubernetes" {
 
 module "eks_cluster" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "${var.cluster_name}"
+  cluster_name    = var.cluster_name
   cluster_version = "1.21"
-  subnets         = [
+  subnets = [
     aws_subnet.tf_region_subnet.id,
     aws_subnet.tf_region_subnet_2.id,
     # aws_subnet.tf_wl_subnet.id
   ]
-  vpc_id          = aws_vpc.tf_vpc.id
+  vpc_id = aws_vpc.tf_vpc.id
 
-  manage_aws_auth = true
+  manage_aws_auth              = true
   manage_cluster_iam_resources = true
-  manage_worker_iam_resources = true
+  manage_worker_iam_resources  = true
 
-  worker_create_security_group = true
+  worker_create_security_group                       = true
   worker_create_cluster_primary_security_group_rules = true
 
   write_kubeconfig = true
 
   map_roles = [
     {
-      rolearn = aws_iam_role.worker_role.arn
+      rolearn  = aws_iam_role.worker_role.arn
       username = "system:node:{{EC2PrivateDNSName}}"
-      groups   = ["system:bootstrappers","system:nodes"]
+      groups   = ["system:bootstrappers", "system:nodes"]
 
     }
   ]

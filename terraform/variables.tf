@@ -17,8 +17,8 @@ variable "worker_key_name" {
 }
 
 variable "cluster_name" {
-  type        = string
-  default     = "wavelength"
+  type    = string
+  default = "wavelength"
 }
 
 variable "wavelength_zone" {
@@ -46,23 +46,34 @@ variable "node_group_s3_bucket_url" {
 }
 
 variable "worker_volume_size" {
-  default = 20
+  default     = 20
+  description = "This is the volume size (GB) of the EBS volumes for the EKS worker nodes."
 }
 
 variable "worker_instance_type" {
-  default = "t3.xlarge"
+  default     = "t3.xlarge"
+  description = "This is the EC2 instance type for the EKS worker nodes."
 }
 
 variable "require_imdsv2" {
   default = true
 }
 
+
+# Create AMI Mapping for Wavelength Zone (EKS 1.21)
 variable "worker_image_id" {
-  default = "ami-0193ebf9573ebc9f7"
+  type = map(string)
+  default = {
+    "us-east-1" = "ami-0193ebf9573ebc9f7"
+    "us-west-2" = "ami-0bb07d9c8d6ca41e8"
+  }
 }
 
+
 variable "worker_nodegroup_name" {
-  default = "Wavelength-Node-Group"
+  default     = "Wavelength-Node-Group"
+  description = "This is the AMI for the EKS worker nodes."
+
 }
 
 variable "domain" {
@@ -81,9 +92,11 @@ locals {
 }
 
 variable "cp_version" {
-  default = "6.2.1"
+  default     = "6.2.1"
+  description = "This is the version of the Confluent Platform."
 }
 
 variable "cfk_version" {
-  default = "2.1.0"
+  default     = "2.1.0"
+  description = "This is the version of Confluent for Kubernetes."
 }
