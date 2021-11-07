@@ -46,3 +46,9 @@ resource "aws_route_table_association" "WLZ_route_association" {
   subnet_id      = aws_subnet.tf_wl_subnet.id
   route_table_id = aws_route_table.WLZ_route_table.id
 }
+
+# Associate Route Table with second subnet for WLZ
+resource "aws_route_table_association" "WLZ_route_association_2" {
+  subnet_id      = aws_subnet.tf_wl_subnet_2.id
+  route_table_id = aws_route_table.WLZ_route_table.id
+}

@@ -61,7 +61,7 @@ resource "aws_autoscaling_group" "workers" {
   # health_check_grace_period = 300
   # health_check_type         = "ELB"
 
-  vpc_zone_identifier = [aws_subnet.tf_wl_subnet.id]
+  vpc_zone_identifier = [aws_subnet.tf_wl_subnet.id, aws_subnet.tf_wl_subnet_2.id]
 
   launch_template {
     id      = aws_launch_template.worker_launch_template.id
@@ -81,4 +81,17 @@ resource "aws_autoscaling_group" "workers" {
   }
 
   ## Todo: auto scaling update policy: max batch 1, pause 5 minutes
+}
+
+resource "null_resource" "update_dns" {
+  provisioner "local-exec" {
+    command = "./apply_dns.sh"
+    environment = {
+      ZONEID = var.zoneid
+      DOMAIN = var.domain
+    }
+  }
+  depends_on = [
+    aws_autoscaling_group.workers
+  ]
 }

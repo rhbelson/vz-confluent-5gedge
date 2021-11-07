@@ -39,6 +39,16 @@ resource "aws_subnet" "tf_wl_subnet" {
   }
 }
 
+# Create second subnet in Wavelength Zone
+resource "aws_subnet" "tf_wl_subnet_2" {
+  vpc_id            = aws_vpc.tf_vpc.id
+  cidr_block        = "10.0.5.0/24"
+  availability_zone = var.wavelength_zone_2
+  tags = {
+    Name = "wavelength-edge-subnet-2"
+  }
+}
+
 # Create Internet Gateway
 resource "aws_internet_gateway" "tf_internet_gw" {
   vpc_id = aws_vpc.tf_vpc.id

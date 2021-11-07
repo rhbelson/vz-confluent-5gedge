@@ -27,6 +27,12 @@ variable "wavelength_zone" {
   description = "This is the Wavelength Zone to deploy the EKS node group."
 }
 
+variable "wavelength_zone_2" {
+  type        = string
+  default     = "us-east-1-wl1-bos-wlz-1"
+  description = "This is the second Wavelength Zone to deploy the EKS node group."
+}
+
 variable "availability_zone_1" {
   type        = string
   default     = "us-east-1a"
@@ -77,7 +83,13 @@ variable "worker_nodegroup_name" {
 }
 
 variable "domain" {
-  default = "lab.local"
+  default     = "lab.local"
+  description = "This the Route53 domain name for your Confluent cluster."
+}
+
+variable "zoneid" {
+  default     = "none"
+  description = "This is the Route53 ZoneID of your Public Hosted Zone for your Confluent cluster."
 }
 
 locals {
@@ -100,3 +112,5 @@ variable "cfk_version" {
   default     = "2.1.0"
   description = "This is the version of Confluent for Kubernetes."
 }
+
+
