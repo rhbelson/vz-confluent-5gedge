@@ -49,6 +49,36 @@ resource "aws_subnet" "tf_wl_subnet_2" {
   }
 }
 
+# Create third subnet in Wavelength Zone
+resource "aws_subnet" "tf_wl_subnet_3" {
+  vpc_id            = aws_vpc.tf_vpc.id
+  cidr_block        = "10.0.6.0/24"
+  availability_zone = var.wavelength_zone_3
+  tags = {
+    Name = "wavelength-edge-subnet-3"
+  }
+}
+
+# Create fourth subnet in Wavelength Zone
+resource "aws_subnet" "tf_wl_subnet_4" {
+  vpc_id            = aws_vpc.tf_vpc.id
+  cidr_block        = "10.0.7.0/24"
+  availability_zone = var.wavelength_zone_4
+  tags = {
+    Name = "wavelength-edge-subnet-4"
+  }
+}
+
+# Create fifth subnet in Wavelength Zone
+resource "aws_subnet" "tf_wl_subnet_5" {
+  vpc_id            = aws_vpc.tf_vpc.id
+  cidr_block        = "10.0.8.0/24"
+  availability_zone = var.wavelength_zone_5
+  tags = {
+    Name = "wavelength-edge-subnet-5"
+  }
+}
+
 # Create Internet Gateway
 resource "aws_internet_gateway" "tf_internet_gw" {
   vpc_id = aws_vpc.tf_vpc.id
