@@ -20,11 +20,8 @@ module "eks_cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = var.cluster_name
   cluster_version = "1.21"
-  subnets = [
-    aws_subnet.tf_region_subnet.id,
-    aws_subnet.tf_region_subnet_2.id,
-    # aws_subnet.tf_wl_subnet.id
-  ]
+  subnets = [for subnet in aws_subnet.region_subnets: subnet.id]
+
   vpc_id = aws_vpc.tf_vpc.id
 
   manage_aws_auth              = true

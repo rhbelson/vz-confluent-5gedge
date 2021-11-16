@@ -21,37 +21,37 @@ variable "cluster_name" {
   default = "wavelength"
 }
 
-# We use availability_zone_id, not availability_zone
+# We use availability_zone_id for zone creation, and availability_zone for pod affinity
 variable "wavelength_zones" {
   default = {
     nyc = {
-      # availability_zone = "us-east-1-wl1-nyc-wlz-1",
+      availability_zone = "us-east-1-wl1-nyc-wlz-1",
       availability_zone_id = "use1-wl1-nyc-wlz1",
-      worker_nodes = 1,
+      worker_nodes = 2,
       cidr_block = "10.0.30.0/24"
     },
     bos = {
-      # availability_zone = "us-east-1-wl1-bos-wlz-1",
+      availability_zone = "us-east-1-wl1-bos-wlz-1",
       availability_zone_id = "use1-wl1-bos-wlz1",
       worker_nodes = 2,
       cidr_block = "10.0.31.0/24"
     },
     was = {
-      # availability_zone = "us-east-1-wl1-was-wlz-1",
+      availability_zone = "us-east-1-wl1-was-wlz-1",
       availability_zone_id = "use1-wl1-was-wlz1",
       worker_nodes = 2,
       cidr_block = "10.0.32.0/24"
     },
     atl = {
-      # availability_zone = "us-east-1-wl1-atl-wlz-1",
+      availability_zone = "us-east-1-wl1-atl-wlz-1",
       availability_zone_id = "use1-wl1-atl-wlz1",
-      worker_nodes = 0,
+      worker_nodes = 2,
       cidr_block = "10.0.33.0/24"
     },
     mia = {
-      # availability_zone = "us-east-1-wl1-mia-wlz-1",
+      availability_zone = "us-east-1-wl1-mia-wlz-1",
       availability_zone_id = "use1-wl1-mia-wlz1",
-      worker_nodes = 0,
+      worker_nodes = 2,
       cidr_block = "10.0.34.0/24"
     },
   }
@@ -67,24 +67,25 @@ variable "availability_zones" {
       availability_zone_id = "use1-az2"
       cidr_block = "10.0.22.0/24"
     },
-    az3 = {
-      availability_zone_id = "use1-az3"
-      cidr_block = "10.0.23.0/24"
-    },
+    # use1-az3 had capacity issues at time of testing
+    # az3 = {
+    #   availability_zone_id = "use1-az3"
+    #   cidr_block = "10.0.23.0/24"
+    # },
   }
 }
 
-variable "availability_zone_1" {
-  type        = string
-  default     = "us-east-1a"
-  description = "This is the first Availability Zone for the EKS control plane."
-}
+# variable "availability_zone_1" {
+#   type        = string
+#   default     = "us-east-1a"
+#   description = "This is the first Availability Zone for the EKS control plane."
+# }
 
-variable "availability_zone_2" {
-  type        = string
-  default     = "us-east-1b"
-  description = "This is the second Availability Zone for the EKS control plane."
-}
+# variable "availability_zone_2" {
+#   type        = string
+#   default     = "us-east-1b"
+#   description = "This is the second Availability Zone for the EKS control plane."
+# }
 
 variable "node_group_s3_bucket_url" {
   type        = string
@@ -143,12 +144,12 @@ locals {
 }
 
 variable "cp_version" {
-  default     = "6.2.1"
+  default     = "7.0.0"
   description = "This is the version of the Confluent Platform."
 }
 
 variable "cfk_version" {
-  default     = "2.1.0"
+  default     = "2.2.0"
   description = "This is the version of Confluent for Kubernetes."
 }
 

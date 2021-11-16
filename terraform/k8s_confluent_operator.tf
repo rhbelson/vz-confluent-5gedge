@@ -25,6 +25,11 @@ resource "helm_release" "confluent_for_kubernetes" {
 
   namespace = "confluent"
 
+  set {
+    name = "namespaced"
+    value = "false"
+  }
+
   depends_on = [
     aws_autoscaling_group.wavelength_workers,
     kubernetes_namespace.confluent,

@@ -1,3 +1,5 @@
+# TODO: Move some of this to managed node groups, which support custom launch templates
+
 locals {
   userdata = <<-EOT
     #!/bin/bash

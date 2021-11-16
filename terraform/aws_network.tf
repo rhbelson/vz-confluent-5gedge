@@ -9,26 +9,26 @@ resource "aws_vpc" "tf_vpc" {
   }
 }
 
-# Create subnet in parent region
-resource "aws_subnet" "tf_region_subnet" {
-  vpc_id            = aws_vpc.tf_vpc.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = var.availability_zone_1
-  tags = {
-    Name = "wavelength-region-subnet"
-  }
-}
+# resource "aws_subnet" "tf_region_subnet" {
+#   vpc_id            = aws_vpc.tf_vpc.id
+#   cidr_block        = "10.0.1.0/24"
+#   availability_zone = var.availability_zone_1
+#   tags = {
+#     Name = "wavelength-region-subnet"
+#   }
+# }
 
-# Create second subnet in parent region
-resource "aws_subnet" "tf_region_subnet_2" {
-  vpc_id            = aws_vpc.tf_vpc.id
-  cidr_block        = "10.0.2.0/24"
-  availability_zone = var.availability_zone_2
-  tags = {
-    Name = "wavelength-region-subnet-2"
-  }
-}
+# # Create second subnet in parent region
+# resource "aws_subnet" "tf_region_subnet_2" {
+#   vpc_id            = aws_vpc.tf_vpc.id
+#   cidr_block        = "10.0.2.0/24"
+#   availability_zone = var.availability_zone_2
+#   tags = {
+#     Name = "wavelength-region-subnet-2"
+#   }
+# }
 
+# Create subnets in parent region; coredns and the Confluent Operator run here
 resource "aws_subnet" "region_subnets" {
   for_each = var.availability_zones
 
