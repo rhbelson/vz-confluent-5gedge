@@ -1,0 +1,5 @@
+.terraform*
+terraform.tfstate*
+kubeconfig_*
+workspace/
+confluent_manifest.yaml
