@@ -21,35 +21,59 @@ variable "cluster_name" {
   default = "wavelength"
 }
 
-variable "wavelength_zone" {
-  type        = string
-  default     = "us-east-1-wl1-nyc-wlz-1"
-  description = "This is the Wavelength Zone to deploy the EKS node group."
+# We use availability_zone_id, not availability_zone
+variable "wavelength_zones" {
+  default = {
+    nyc = {
+      # availability_zone = "us-east-1-wl1-nyc-wlz-1",
+      availability_zone_id = "use1-wl1-nyc-wlz1",
+      worker_nodes = 1,
+      cidr_block = "10.0.30.0/24"
+    },
+    bos = {
+      # availability_zone = "us-east-1-wl1-bos-wlz-1",
+      availability_zone_id = "use1-wl1-bos-wlz1",
+      worker_nodes = 2,
+      cidr_block = "10.0.31.0/24"
+    },
+    was = {
+      # availability_zone = "us-east-1-wl1-was-wlz-1",
+      availability_zone_id = "use1-wl1-was-wlz1",
+      worker_nodes = 2,
+      cidr_block = "10.0.32.0/24"
+    },
+    atl = {
+      # availability_zone = "us-east-1-wl1-atl-wlz-1",
+      availability_zone_id = "use1-wl1-atl-wlz1",
+      worker_nodes = 0,
+      cidr_block = "10.0.33.0/24"
+    },
+    mia = {
+      # availability_zone = "us-east-1-wl1-mia-wlz-1",
+      availability_zone_id = "use1-wl1-mia-wlz1",
+      worker_nodes = 0,
+      cidr_block = "10.0.34.0/24"
+    },
+  }
 }
 
-variable "wavelength_zone_2" {
-  type        = string
-  default     = "us-east-1-wl1-bos-wlz-1"
-  description = "This is the second Wavelength Zone to deploy the EKS node group."
+variable "availability_zones" {
+  default = {
+    az1 = {
+      availability_zone_id = "use1-az1"
+      cidr_block = "10.0.21.0/24"
+    },
+    az2 = {
+      availability_zone_id = "use1-az2"
+      cidr_block = "10.0.22.0/24"
+    },
+    az3 = {
+      availability_zone_id = "use1-az3"
+      cidr_block = "10.0.23.0/24"
+    },
+  }
 }
 
-variable "wavelength_zone_3" {
-  type        = string
-  default     = "us-east-1-wl1-was-wlz-1"
-  description = "This is the third Wavelength Zone to deploy the EKS node group."
-}
-
-variable "wavelength_zone_4" {
-  type        = string
-  default     = "us-east-1-wl1-atl-wlz-1"
-  description = "This is the fourth Wavelength Zone to deploy the EKS node group."
-}
-
-variable "wavelength_zone_5" {
-  type        = string
-  default     = "us-east-1-wl1-mia-wlz-1"
-  description = "This is the fifth Wavelength Zone to deploy the EKS node group."
-}
 variable "availability_zone_1" {
   type        = string
   default     = "us-east-1a"
@@ -82,24 +106,6 @@ variable "require_imdsv2" {
   default = true
 }
 
-variable "wlz2" {
-  default     = false
-  description = "Bool to determine deployment of second Wavelength Zone node group."
-}
-variable "wlz3" {
-  default     = false
-  description = "Bool to determine deployment of third Wavelength Zone node group."
-}
-variable "wlz4" {
-  default     = false
-  description = "Bool to determine deployment of fourth Wavelength Zone node group."
-}
-variable "wlz5" {
-  default     = false
-  description = "Bool to determine deployment of fifth Wavelength Zone node group."
-}
-
-
 # Create AMI Mapping for Wavelength Zone (EKS 1.21)
 variable "worker_image_id" {
   type = map(string)
@@ -111,7 +117,7 @@ variable "worker_image_id" {
 
 variable "worker_nodegroup_name" {
   default     = "Wavelength-Node-Group"
-  description = "This is the AMI for the EKS worker nodes."
+  description = "This is the name for the EKS worker nodes."
 
 }
 
@@ -146,4 +152,53 @@ variable "cfk_version" {
   description = "This is the version of Confluent for Kubernetes."
 }
 
+# variable "wavelength_zone" {
+#   type        = string
+#   default     = "us-east-1-wl1-nyc-wlz-1"
+#   description = "This is the Wavelength Zone to deploy the EKS node group."
+# }
 
+# variable "wavelength_zone_2" {
+#   type        = string
+#   default     = "us-east-1-wl1-bos-wlz-1"
+#   description = "This is the second Wavelength Zone to deploy the EKS node group."
+# }
+
+# variable "wavelength_zone_3" {
+#   type        = string
+#   default     = "us-east-1-wl1-was-wlz-1"
+#   description = "This is the third Wavelength Zone to deploy the EKS node group."
+# }
+
+# variable "wavelength_zone_4" {
+#   type        = string
+#   default     = "us-east-1-wl1-atl-wlz-1"
+#   description = "This is the fourth Wavelength Zone to deploy the EKS node group."
+# }
+
+# variable "wavelength_zone_5" {
+#   type        = string
+#   default     = "us-east-1-wl1-mia-wlz-1"
+#   description = "This is the fifth Wavelength Zone to deploy the EKS node group."
+# }
+
+# variable "wlz1" {
+#   default     = false
+#   description = "Bool to determine deployment of second Wavelength Zone node group."
+# }
+# variable "wlz2" {
+#   default     = false
+#   description = "Bool to determine deployment of second Wavelength Zone node group."
+# }
+# variable "wlz3" {
+#   default     = false
+#   description = "Bool to determine deployment of third Wavelength Zone node group."
+# }
+# variable "wlz4" {
+#   default     = false
+#   description = "Bool to determine deployment of fourth Wavelength Zone node group."
+# }
+# variable "wlz5" {
+#   default     = false
+#   description = "Bool to determine deployment of fifth Wavelength Zone node group."
+# }

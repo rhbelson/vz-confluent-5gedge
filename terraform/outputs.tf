@@ -16,3 +16,6 @@
 #   description = "The Carrier IP address of the edge instances in the Wavelength Zone"
 # }
 
+# output "subnets" {
+#   value = [for subnet in aws_subnet.region_subnets: subnet.id]
+# }

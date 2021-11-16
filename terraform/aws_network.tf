@@ -29,53 +29,30 @@ resource "aws_subnet" "tf_region_subnet_2" {
   }
 }
 
-# Create subnet in Wavelength Zone
-resource "aws_subnet" "tf_wl_subnet" {
+resource "aws_subnet" "region_subnets" {
+  for_each = var.availability_zones
+
   vpc_id            = aws_vpc.tf_vpc.id
-  cidr_block        = "10.0.4.0/24"
-  availability_zone = var.wavelength_zone
+
+  cidr_block        = each.value.cidr_block
+  availability_zone_id = each.value.availability_zone_id
+
   tags = {
-    Name = "wavelength-edge-subnet"
+    Name = "wavelength-region-subnet-${each.key}"
   }
 }
 
-# Create second subnet in Wavelength Zone
-resource "aws_subnet" "tf_wl_subnet_2" {
-  vpc_id            = aws_vpc.tf_vpc.id
-  cidr_block        = "10.0.5.0/24"
-  availability_zone = var.wavelength_zone_2
-  tags = {
-    Name = "wavelength-edge-subnet-2"
-  }
-}
+# Create subnet for each wavelength zone
+resource "aws_subnet" "wavelength_subnets" {
+  for_each = var.wavelength_zones
 
-# Create third subnet in Wavelength Zone
-resource "aws_subnet" "tf_wl_subnet_3" {
   vpc_id            = aws_vpc.tf_vpc.id
-  cidr_block        = "10.0.6.0/24"
-  availability_zone = var.wavelength_zone_3
-  tags = {
-    Name = "wavelength-edge-subnet-3"
-  }
-}
 
-# Create fourth subnet in Wavelength Zone
-resource "aws_subnet" "tf_wl_subnet_4" {
-  vpc_id            = aws_vpc.tf_vpc.id
-  cidr_block        = "10.0.7.0/24"
-  availability_zone = var.wavelength_zone_4
-  tags = {
-    Name = "wavelength-edge-subnet-4"
-  }
-}
+  cidr_block        = each.value.cidr_block
+  availability_zone_id = each.value.availability_zone_id
 
-# Create fifth subnet in Wavelength Zone
-resource "aws_subnet" "tf_wl_subnet_5" {
-  vpc_id            = aws_vpc.tf_vpc.id
-  cidr_block        = "10.0.8.0/24"
-  availability_zone = var.wavelength_zone_5
   tags = {
-    Name = "wavelength-edge-subnet-5"
+    Name = "wavelength-edge-subnet-${each.key}"
   }
 }
 
@@ -94,6 +71,56 @@ resource "aws_ec2_carrier_gateway" "tf_carrier_gateway" {
     Name = "tf-carrier-gw"
   }
 }
+
+# # Create subnet in Wavelength Zone
+# resource "aws_subnet" "tf_wl_subnet" {
+#   vpc_id            = aws_vpc.tf_vpc.id
+#   cidr_block        = "10.0.4.0/24"
+#   availability_zone = var.wavelength_zone
+#   tags = {
+#     Name = "wavelength-edge-subnet"
+#   }
+# }
+
+# # Create second subnet in Wavelength Zone
+# resource "aws_subnet" "tf_wl_subnet_2" {
+#   vpc_id            = aws_vpc.tf_vpc.id
+#   cidr_block        = "10.0.5.0/24"
+#   availability_zone = var.wavelength_zone_2
+#   tags = {
+#     Name = "wavelength-edge-subnet-2"
+#   }
+# }
+
+# # Create third subnet in Wavelength Zone
+# resource "aws_subnet" "tf_wl_subnet_3" {
+#   vpc_id            = aws_vpc.tf_vpc.id
+#   cidr_block        = "10.0.6.0/24"
+#   availability_zone = var.wavelength_zone_3
+#   tags = {
+#     Name = "wavelength-edge-subnet-3"
+#   }
+# }
+
+# # Create fourth subnet in Wavelength Zone
+# resource "aws_subnet" "tf_wl_subnet_4" {
+#   vpc_id            = aws_vpc.tf_vpc.id
+#   cidr_block        = "10.0.7.0/24"
+#   availability_zone = var.wavelength_zone_4
+#   tags = {
+#     Name = "wavelength-edge-subnet-4"
+#   }
+# }
+
+# # Create fifth subnet in Wavelength Zone
+# resource "aws_subnet" "tf_wl_subnet_5" {
+#   vpc_id            = aws_vpc.tf_vpc.id
+#   cidr_block        = "10.0.8.0/24"
+#   availability_zone = var.wavelength_zone_5
+#   tags = {
+#     Name = "wavelength-edge-subnet-5"
+#   }
+# }
 
 # resource "aws_vpc_endpoint" "ec2" {
 #   vpc_id            = aws_vpc.tf_vpc.id
