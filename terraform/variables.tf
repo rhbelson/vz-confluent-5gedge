@@ -29,30 +29,35 @@ variable "wavelength_zones" {
       availability_zone_id = "use1-wl1-nyc-wlz1",
       worker_nodes = 2,
       cidr_block = "10.0.30.0/24"
+      nodeport_offset = 30100
     },
     bos = {
       availability_zone = "us-east-1-wl1-bos-wlz-1",
       availability_zone_id = "use1-wl1-bos-wlz1",
       worker_nodes = 2,
       cidr_block = "10.0.31.0/24"
+      nodeport_offset = 30200
     },
     was = {
       availability_zone = "us-east-1-wl1-was-wlz-1",
       availability_zone_id = "use1-wl1-was-wlz1",
       worker_nodes = 2,
       cidr_block = "10.0.32.0/24"
+      nodeport_offset = 30300
     },
     atl = {
       availability_zone = "us-east-1-wl1-atl-wlz-1",
       availability_zone_id = "use1-wl1-atl-wlz1",
       worker_nodes = 2,
       cidr_block = "10.0.33.0/24"
+      nodeport_offset = 30400
     },
     mia = {
       availability_zone = "us-east-1-wl1-mia-wlz-1",
       availability_zone_id = "use1-wl1-mia-wlz1",
       worker_nodes = 2,
       cidr_block = "10.0.34.0/24"
+      nodeport_offset = 30500
     },
   }
 }

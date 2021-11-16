@@ -49,7 +49,7 @@ spec:
     - externalAccess:
         nodePort:
           host: np.${domain}
-          nodePortOffset: 31000
+          nodePortOffset: ${nodeport_offset}
         type: nodePort
       name: np
       port: 9096

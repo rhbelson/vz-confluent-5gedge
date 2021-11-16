@@ -11,6 +11,7 @@ resource "local_file" "manifests" {
       cfk_version        = "${var.cfk_version}",
       namespace          = "${each.key}",
       zone               = "${each.value.availability_zone}"
+      nodeport_offset    = "${each.value.nodeport_offset}"
     }
   )
 }
