@@ -28,35 +28,35 @@ variable "wavelength_zones" {
       availability_zone = "us-east-1-wl1-nyc-wlz-1",
       availability_zone_id = "use1-wl1-nyc-wlz1",
       worker_nodes = 2,
-      cidr_block = "10.0.30.0/24"
+      cidr_block = "10.0.10.0/24"
       nodeport_offset = 30100
     },
     bos = {
       availability_zone = "us-east-1-wl1-bos-wlz-1",
       availability_zone_id = "use1-wl1-bos-wlz1",
       worker_nodes = 2,
-      cidr_block = "10.0.31.0/24"
+      cidr_block = "10.0.11.0/24"
       nodeport_offset = 30200
     },
     was = {
       availability_zone = "us-east-1-wl1-was-wlz-1",
       availability_zone_id = "use1-wl1-was-wlz1",
       worker_nodes = 2,
-      cidr_block = "10.0.32.0/24"
+      cidr_block = "10.0.12.0/24"
       nodeport_offset = 30300
     },
     atl = {
       availability_zone = "us-east-1-wl1-atl-wlz-1",
       availability_zone_id = "use1-wl1-atl-wlz1",
       worker_nodes = 2,
-      cidr_block = "10.0.33.0/24"
+      cidr_block = "10.0.13.0/24"
       nodeport_offset = 30400
     },
     mia = {
       availability_zone = "us-east-1-wl1-mia-wlz-1",
       availability_zone_id = "use1-wl1-mia-wlz1",
       worker_nodes = 2,
-      cidr_block = "10.0.34.0/24"
+      cidr_block = "10.0.14.0/24"
       nodeport_offset = 30500
     },
   }
@@ -66,11 +66,11 @@ variable "availability_zones" {
   default = {
     az1 = {
       availability_zone_id = "use1-az1"
-      cidr_block = "10.0.21.0/24"
+      cidr_block = "10.0.1.0/24"
     },
     az2 = {
       availability_zone_id = "use1-az2"
-      cidr_block = "10.0.22.0/24"
+      cidr_block = "10.0.2.0/24"
     },
     # use1-az3 had capacity issues at time of testing
     # az3 = {
