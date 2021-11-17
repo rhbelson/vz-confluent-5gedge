@@ -2,7 +2,7 @@ resource "local_file" "manifests" {
   for_each = var.wavelength_zones
   filename = "confluent_manifest_${each.key}.yaml"
   content = templatefile(
-    "${path.module}/templates/min.tpl",
+    var.enable_dual_listener ? "${path.module}/templates/zone_dual_listener.tpl" : "${path.module}/templates/zone.tpl",
     {
       zookeeper_replicas = 1,
       broker_replicas    = 3,

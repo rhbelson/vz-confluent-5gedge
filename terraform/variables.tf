@@ -158,6 +158,10 @@ variable "cfk_version" {
   description = "This is the version of Confluent for Kubernetes."
 }
 
+variable "enable_dual_listener" {
+  default     = false
+}
+
 # variable "wavelength_zone" {
 #   type        = string
 #   default     = "us-east-1-wl1-nyc-wlz-1"
